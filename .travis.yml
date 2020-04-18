@@ -10,5 +10,5 @@ deploy:
     secure: HieCDaMLfUp37GiGC1T8UO2bQSkZf0XeGdDCHKTh3iObWKWmIY6n/RmH6SVqYyHE/Z0p5nnpYk/SxwXK4kULzLxrhU6tG5Zb5P6SQS4PQpK6b7M3fcQOE8/W437VUvH5dKH1aziZCosYFtOxXFLM9BSMVbEYJM/ZRqx3B6kqFmKxzy+QGfjG+TvnDcqfaXELZ8PM1XX0KuWl3hf42TCUtjDQUsRtq6MJUN/UQbpZ62HCu0cSw6Kovnoza84qjm//rvf72LsbJFs8f8oMLV/pw4+t+Gn6insdLvMNxMjVKAeXZF3EZa7ytOzz2V1YXeYbC8x3rKdNr7jKcgFfBp/2+qvX9qIuQg0uyL13Yw56DJBlzVEWTXYWUHi9Qj66YLhyLnKeQArsPwpH6+hqlYsuqvtqqGfOTPna+8JPYaoOq4mIGj+eyjyJ2ALFpF8CWHw3W3xratFx43En7X715rj+/p0HuMWE888Zw/EzQht6PZBYMRoeOefloRnGAXRme2eoHjC2oMtx43/KqxSOvwcaNudapM+ONYgeCqzYVZDLPZpGzS8OaI7iuqSuadEVtCaBfw9dCZ/vvgW0EShol9h2aK+NXCf9fP0I+bZsYfNGgm573OOisnjHBxNb2aN25Rvj7IlSDJTQ+1y3cHyFfwatOhW2H3o6GR+pgGfc6BY5elc=
   file: build/libs/imgresize.jar
   on:
-    repo: dhawton/io.hawton.utils.imgresize
-    
+    branches: master
+    tags: true
