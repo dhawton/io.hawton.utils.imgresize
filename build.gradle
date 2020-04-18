@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'io.hawton'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "commons-cli:commons-cli:1.4"
+    implementation "org.imgscalr:imgscalr-lib:4.2"
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    } {
+        exclude "META-INF/DEPENDENCIES"
+        exclude "META-INF/LICENSE"
+        exclude "META-INF/NOTICE"
+    }
+
+    manifest {
+        attributes 'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Main-Class': "io.hawton.utils.imgresize.Main",
+                'Multi-Release': 'true'
+    }
+}
