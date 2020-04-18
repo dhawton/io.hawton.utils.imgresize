@@ -1,0 +1,14 @@
+language: java
+install: true
+jdk:
+- openjdk11
+script:
+- "./gradlew build"
+deploy:
+  provider: releases
+  api_key:
+    secure: DAURMvokASk6AN6FdQKfdFgaalBYZ7sIJalE7L4dKziY/KeTZvPnPzIMu6GGdiXDkKFmeD2gQ7W4avg8e75/KvnlquP0qdoKdcIvHRt4lEwHwbU3ToO2fCQ4s/h6KOJ8ZJ5KmgQZRC57WmIs0/hlRzjBmOpxaR+zQqvnfnsXsbceG8Nxd+28HvGMWauRTM3hoJTiU8vOjjHAyw2/HH1n1KKwuq9NY8dy32pyr+HzkDFQXpXy3Fk2YWVafCARIBK1ZCEOSwKedZvKLJK6J164cnuak6+syM4N8TQvFnsi1PFXnXxRUyuscstYppvLJPk3hnXarcW8FDwPNSr8JxUC1orm/DPLO0BdxsfjPdj7e3L4tXVZ9Iz+WAAM7/ePLfVjlSslhgzVOhkoVmS5ZUBwmnA1bug8p2dR0/BPtX1gDQX2CA17ijcUKHgcDIcU7yARrX50HMx9TqCRyeH3ew3L629Vb1wSQ1WrNIr2tXXm+AZmC+9TsVgP2mM0XOBAlnjRsfZv7tkZmZPkJaSJAeTeRzhzVDYegOIwU4dv7DLA4HJ42RKi1KpZpqx43ZI8yZVTUXG9AC++pN65TMGxjOrnUgVjAz8sxIGE1Q/b8kZwwVwbaBmVuizCmX90if5+wMti8XRX4gv5c9l5LXsefXdEFbR6E6C+DLnwSNyBez3+luU=
+  file: build/libs/imgresize.jar
+  on:
+    repo: dhawton/io.hawton.utils.imgresize
+    tags: true
