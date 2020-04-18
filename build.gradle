@@ -34,4 +34,6 @@ jar {
                 'Main-Class': "io.hawton.utils.imgresize.Main",
                 'Multi-Release': 'true'
     }
+
+    archiveName "imgresize.jar"
 }
