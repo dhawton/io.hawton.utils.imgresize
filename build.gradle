@@ -3,14 +3,13 @@ plugins {
 }
 
 group 'io.hawton'
-version '1.0-SNAPSHOT'
+version '1.1.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "commons-cli:commons-cli:1.4"
     implementation "org.imgscalr:imgscalr-lib:4.2"
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
@@ -34,6 +33,5 @@ jar {
                 'Main-Class': "io.hawton.utils.imgresize.Main",
                 'Multi-Release': 'true'
     }
-
     archiveName "imgresize.jar"
 }

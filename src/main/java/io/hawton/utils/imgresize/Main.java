@@ -21,9 +21,7 @@ DEALINGS IN THE SOFTWARE.
 
 package io.hawton.utils.imgresize;
 
-import org.apache.commons.cli.*;
 import org.imgscalr.Scalr;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,19 +29,36 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    private static Options options;
-    private static CommandLineParser commandLineParser;
-    private static HelpFormatter helpFormatter;
-    private static CommandLine commandLine;
-    private static int maxSide = -1;
-    private static int width = -1;
-    private static int height = -1;
+    private static String _VERSION = "1.1.0";
+    private static int width = 300;
+    private static int height = 300;
     private static String inFile = null;
     private static String outFile = null;
 
     public static void main(String[] args) {
-        BuildCommandLineParser();
-        ParseCommandLine(args);
+        for (int i = 0; i < args.length; i++) {
+            switch(args[i]) {
+                case "-h":
+                case "--height":
+                    height = Integer.parseInt(args[++i]);
+                    break;
+                case "-w":
+                case "--width":
+                    width = Integer.parseInt(args[++i]);
+                    break;
+                case "--help":
+                    ShowHelp(true, 0);
+                    break;
+                default:
+                    if (inFile == null) inFile = args[i];
+                    else if (outFile == null) outFile = args[i];
+                    else ShowHelp(true, 1);
+            }
+        }
+
+        if (inFile == null || outFile == null) {
+            ShowHelp(true, 1);
+        }
 
         try {
             BufferedImage originalImage = ImageIO.read(new File(inFile));
@@ -54,66 +69,6 @@ public class Main {
             System.out.println("Caught IOException: " + e.getMessage());
             System.exit(1);
         }
-    }
-
-    private static void BuildCommandLineParser() {
-        commandLineParser = new DefaultParser();
-        options = new Options();
-
-        Option helpOption = new Option("h", "help", false, "Show help");
-        options.addOption(helpOption);
-        Option versionOption = new Option("v", "version", false, "Show jircd version information");
-        options.addOption(versionOption);
-        Option widthOption = new Option("w", "width", true, "Set width in pixels");
-        //widthOption.setRequired(true);
-        options.addOption(widthOption);
-        Option heightOption = new Option("h", "height", true, "Set height in pixels");
-        //heightOption.setRequired(true);
-        options.addOption(heightOption);
-
-        helpFormatter = new HelpFormatter();
-    }
-
-    private static void ParseCommandLine(String[] args) {
-        try {
-            commandLine = commandLineParser.parse(options, args);
-        } catch(ParseException e) {
-            // This will catch if required parameters are missing
-            ShowHelp(true, 1);
-        }
-
-        if (commandLine.hasOption("help")) {
-            ShowHelp(true, 0);
-        }
-
-        if (commandLine.hasOption("w") || commandLine.hasOption("width")) {
-            int m = Integer.parseInt(commandLine.getOptionValue("w"));
-            if (m <= 0) {
-                System.out.println("Invalid width value specified.");
-                ShowHelp(true, 1);
-            }
-            width = m;
-        }
-
-        if (commandLine.hasOption("h") || commandLine.hasOption("height")) {
-            int m = Integer.parseInt(commandLine.getOptionValue("h"));
-            if (m <= 0) {
-                System.out.println("Invalid height value specified.");
-                ShowHelp(true, 1);
-            }
-            height = m;
-        }
-
-        if (height == -1) height = 300;
-        if (width == -1) width = 300;
-
-        String[] otherArgs = commandLine.getArgs();
-        if (otherArgs.length < 2) {
-            ShowHelp(true, 1);
-        }
-
-        inFile = otherArgs[0];
-        outFile = otherArgs[1];
     }
 
     private static void ShowHelp() {
@@ -127,7 +82,11 @@ public class Main {
                 .getPath())
                 .getName();
         String jarPath = String.format("java -jar %s", jar);
-        helpFormatter.printHelp(String.format("%s [options] (input file) (output file)", jarPath), options);
+        System.out.println(String.format("%s v%s", jar, _VERSION));
+        System.out.println(String.format("%s [options] (input file) (output file)", jarPath));
+        System.out.println(String.format("  -h, --height (size in px) = Set desired height [default 300px]"));
+        System.out.println(String.format("  -w, --width (size in px)  = Set desired width [default 300px]"));
+        System.out.println(String.format("  --help                    = Show this help output"));
         if (exit)
             System.exit(ExitCode);
     }
